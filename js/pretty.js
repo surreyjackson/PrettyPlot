@@ -70,8 +70,11 @@ var makeTranslateString = function(x,y)
 var drawAxes = function(graphDim,margins,
                          xScale,yScale)
 {
-   
- 
+   var xAxis = d3.axisBottom().scale(xScale);
+   d3.select("svg").append("g").attr("class","axis").attr("transform","translate(50,550)").call(xAxis);
+    
+   var yAxis = d3.axisLeft().scale(yScale);
+   d3.select("svg").append("g").attr("class","axis").attr("transform","translate(50,50)").call(yAxis);
 }
 
 
@@ -79,7 +82,30 @@ var drawAxes = function(graphDim,margins,
 //margins - objedct that stores the size of the margins
 var drawLabels = function(graphDim,margins)
 {
+    var y = d3.select("svg")
+  .append("g")
+    .attr("transform","translate(10,200)")
+
+  y.append("text")
+    .text("Percentage Voting for Trump")
+    .attr("transform","rotate(90)")
+    .classed("label",true)
     
+    var x = d3.select("svg")
+  .append("g")
+    .attr("transform","translate(360,600)")
+    .classed("label",true)
+
+  x.append("text")
+    .text("Percent White")
+    
+    var title = d3.select("svg")
+  .append("g")
+    .attr("transform","translate(300,30)")
+    .classed("title",true)
+
+  title.append("text")
+    .text("Trump Support")
 }
 
 
@@ -97,9 +123,33 @@ var drawLegend = function(graphDim,margins)
            name:"High unemployment"
        }
     ]
-
-
+   d3.select("svg").append("circle").attr("cx",670)
+    .attr("cy",100)
+    .attr("r",4)
+    .attr("class","lessCollege")
     
+   d3.select("svg").append("circle").attr("cx",670)
+    .attr("cy",120)
+    .attr("r",4)
+    .attr("class","unemployment")
+
+    var college = d3.select("svg")
+  .append("g")
+    .attr("transform","translate(680,105)")
+    .style('fill','red')
+    .style('font-size','13px')
+
+  college.append("text")
+    .text("Less College")
+    
+    var unemployment = d3.select("svg")
+  .append("g")
+    .attr("transform","translate(680,125)")
+    .style('fill','blue')
+    .style('font-size','13px')
+
+  unemployment.append("text")
+    .text("High Unemployment")
     
     
 }
@@ -110,7 +160,7 @@ var initGraph = function(counties)
     //size of screen
     var screen = {width:800,height:600}
     //how much space on each side
-    var margins = {left:30,right:20,top:20,bottom:30}
+    var margins = {left:50,right:150,top:50,bottom:50}
     
     
     
